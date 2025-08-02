@@ -2,24 +2,34 @@ extends Node2D
 
 # Physics properties for the roulette wheel
 @export var torque_impulse := 30.0
-@export var max_angular_velocity := 20.0
+# @export var max_angular_velocity := 20.0
 @export var friction := 0.1
+@export var mass := 1.0
+
+# Snap properties
 @export var bounce_snap_time := 0.5
 @export var bounce_ease := 0.4
 
 # Play properties
-# @export var direction := "clockwise"  # "clockwise" or "counterclockwise"
 @export var clockwise := true  # Use this to determine direction
 
-
-@onready var wheel := $Wheel
-# @onready var tween := $Tween
-
+# Mode properties
 var final_result_angle := 0.0
 var section_angles := [0, 120, 240] # Degrees for R/P/S
 
+
+# Node references
+@onready var wheel := $Wheel
+# @onready var input_handler := $InputHandler
+# @onready var tween := $Tween
+
+
 func _ready():
     wheel.angular_damp = friction
+    wheel.mass = mass
+    # wheel.mode = RigidBody2D.MODE_KINEMATIC  
+
+    # TODO: Potentially, if too fast increase temporarily the damping
     # wheel.max_angular_velocity = max_angular_velocity
 
 func apply_push():

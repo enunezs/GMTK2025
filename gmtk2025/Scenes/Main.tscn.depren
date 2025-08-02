@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://cj1tyarfquiat" path="res://Scripts/InputHandler.gd" id="2_kln2b"]
 [ext_resource type="PackedScene" uid="uid://drlyniedtm6j0" path="res://Scenes/UI_Timer.tscn" id="4_rgh2o"]
 
-[node name="Main" type="Node2D"]
+[node name="Main_Node2D" type="Node2D"]
 script = ExtResource("1_kln2b")
 
 [node name="Roulette_Left" parent="." instance=ExtResource("1_idj7w")]
@@ -18,7 +18,7 @@ clockwise = false
 [node name="InputHandler" type="Node2D" parent="."]
 script = ExtResource("2_kln2b")
 
-[node name="UI_Timer" parent="." instance=ExtResource("4_rgh2o")]
+[node name="UiTimer" parent="." instance=ExtResource("4_rgh2o")]
 position = Vector2(494, 62)
 
 [node name="GameTimer" type="Timer" parent="."]

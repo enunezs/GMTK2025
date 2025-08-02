@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://drlyniedtm6j0"]
+
+[ext_resource type="Script" uid="uid://b11jl1u25hhxb" path="res://Scripts/UITimer.gd" id="1_tv0yu"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tv0yu"]
+
+[sub_resource type="SystemFont" id="SystemFont_kiqta"]
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_yshok"]
+font = SubResource("SystemFont_kiqta")
+font_size = 50
+outline_size = 7
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 6
+shadow_color = Color(0.831373, 1, 0, 1)
+shadow_offset = Vector2(3, 2)
+
+[node name="UiTimer" type="Node2D"]
+material = SubResource("CanvasItemMaterial_tv0yu")
+script = ExtResource("1_tv0yu")
+
+[node name="TimerLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "30.000"
+label_settings = SubResource("LabelSettings_yshok")
