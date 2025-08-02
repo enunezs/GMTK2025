@@ -7,13 +7,13 @@
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_kln2b")
-game_time = 5.0
+game_time = 30.0
 
 [node name="Roulette_Left" parent="." instance=ExtResource("1_idj7w")]
-position = Vector2(53, 152)
+position = Vector2(50, 160)
 
 [node name="Roulette_Right" parent="." instance=ExtResource("1_idj7w")]
-position = Vector2(416, 160)
+position = Vector2(430, 160)
 clockwise = false
 
 [node name="InputHandler" type="Node2D" parent="."]

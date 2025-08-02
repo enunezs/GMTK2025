@@ -8,12 +8,8 @@ var default_font : Font = ThemeDB.fallback_font;
 @export var default_color: Color = Color.WHITE
 @export var border_width: float = 2.0
 
-# Optional: Custom colors for types
-@export var section_colors: Dictionary = {
-    "rock": Color.RED,
-    "paper": Color.GREEN,
-    "scissors": Color.BLUE
-}
+@export var flip = false # If true, rotate the images
+
 
 func _draw():
     var segments = 64  # smoothness
@@ -22,7 +18,7 @@ func _draw():
         var start_rad = deg_to_rad(section.angle_start)
         var end_rad = deg_to_rad(section.angle_end)
         var sweep = end_rad - start_rad
-        var color = section_colors.get(section.type, Color.GRAY)
+        var color = section.color if section.color else Color.GRAY
 
         # Create PackedVector2Array for points
         var points := PackedVector2Array()
@@ -57,11 +53,42 @@ func _draw():
         draw_line(Vector2.ZERO, start_point, Color.BLACK, border_width)
         draw_line(Vector2.ZERO, end_point, Color.BLACK, border_width)
 
-func get_result_type(angle: float = 0.0) -> String:
+        if section.icon:
+            # Distance from center to icon
+            var icon_center = Vector2(cos(mid_angle), sin(mid_angle)) * (radius * 0.7)
+
+            # Choose size
+            var icon_size = Vector2(48, 48)*1.4
+            var top_left = -icon_size / 2.0  # Centered drawing
+
+            # Create a transform that:
+            # 1. Translates to the icon center
+            # 2. Rotates around that center
+            # 3. Draws icon centered
+            var transform = Transform2D()
+            
+            if flip:
+                mid_angle += PI  # Flip the icon
+            transform = transform.rotated(mid_angle)     # Rotate around Z
+            transform.origin = icon_center               # Move to final position
+
+            # Apply transform
+            draw_set_transform_matrix(transform)
+
+            # Draw icon centered at origin (because we transformed the canvas)
+
+            draw_texture_rect(section.icon, Rect2(top_left, icon_size), false)
+
+            # Reset transform back to default
+            draw_set_transform_matrix(Transform2D())
+
+func get_result_type(target_angle: float = 0.0) -> String:
     # Read Drawer then use rotation to determine the result
-    var cur_angle = fmod(angle, 360)
+    target_angle = fmod(360-target_angle, 360.0)
+    if target_angle < 0:
+        target_angle += 360.0   
     for section in sections:
-        if section.angle_start <= cur_angle < section.angle_end:
+        if (section.angle_start <= target_angle) and (target_angle < section.angle_end):
             return section.type
     return "unknown"
 

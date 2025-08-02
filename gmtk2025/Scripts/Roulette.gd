@@ -15,6 +15,7 @@ extends Node2D
 
 # Mode properties
 var final_result_angle := 0.0
+var offset_angle := 00.0  # Used for snapping to result
 var section_angles := [0, 120, 240] # Degrees for R/P/S
 
 
@@ -26,16 +27,34 @@ var snap_tolerance := 1.0  # degrees of allowable error
 # Node references
 # @onready var tween := create_tween()
 @onready var wheel := $Wheel
+@onready var drawer := wheel.get_node("Drawer")
 # @onready var input_handler := $InputHandler
 
+signal result_changed
 
 func _ready():
     wheel.angular_damp = friction
     wheel.mass = mass
     # wheel.mode = RigidBody2D.MODE_RIGID
 
+    if clockwise:
+        offset_angle = 0
+        drawer.flip = false
+    else:
+        offset_angle = 180
+        drawer.flip = true
+
+
     # TODO: Potentially, if too fast increase temporarily the damping
     # wheel.max_angular_velocity = max_angular_velocity
+
+func get_result_type() -> String:
+    # Check current angle
+    var cur_angle = fmod(wheel.rotation_degrees, 360)
+    # Read Drawer then use rotation to determine the result
+    # return drawer.get_result_type(cur_angle)
+    return drawer.get_result_type(cur_angle+offset_angle)
+
 
 func apply_push():
     var new_torque_impulse = torque_impulse if clockwise else -torque_impulse
@@ -48,6 +67,22 @@ func snap_to_result():
     
     # wheel.mode = RigidBody2D.MODE_RIGID
     snapping_to_result = true
+
+
+
+var _last_result := ""
+func _physics_process(_delta):
+    # if wheel.mode != RigidBody2D.MODE_STATIC:
+    var current = get_result_type()
+
+    if current != _last_result:
+        _last_result = current
+        # emit_signal("result_changed", current)
+    
+        # print("Result changed: ", current)
+        result_changed.emit()
+
+
 
 # func _physics_process(delta):
 #     if snapping_to_result:
@@ -151,11 +186,4 @@ func _closest_section_angle(current_angle: float) -> float:
             min_diff = diff
             closest = angle
     return closest
-
-func get_result_type() -> String:
-    match final_result_angle:
-        0: return "rock"
-        120: return "paper"
-        240: return "scissors"
-        _: return "unknown"
 

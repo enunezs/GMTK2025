@@ -1,32 +1,68 @@
-[gd_scene load_steps=9 format=3 uid="uid://7o0wdtbv6nc4"]
+[gd_scene load_steps=15 format=3 uid="uid://7o0wdtbv6nc4"]
 
 [ext_resource type="Script" uid="uid://dtuyvq5ya52w3" path="res://Scripts/Roulette.gd" id="1_6x8gs"]
 [ext_resource type="Texture2D" uid="uid://becy43nmj57r6" path="res://Sprites/Picture1.png" id="1_m1l22"]
-[ext_resource type="Script" uid="uid://cv0gcm0fb5v5h" path="res://Scenes/RouletteDrawer.gd" id="3_e675i"]
+[ext_resource type="Script" uid="uid://cv0gcm0fb5v5h" path="res://Scripts/RouletteDrawer.gd" id="3_e675i"]
 [ext_resource type="Script" uid="uid://20q4wr40svnw" path="res://Scripts/SectionData.gd" id="4_evxvx"]
+[ext_resource type="Texture2D" uid="uid://d0vnsil6w11tj" path="res://Sprites/rock.png" id="5_7oaar"]
+[ext_resource type="Texture2D" uid="uid://dygcdo7xcaqul" path="res://Sprites/paper.png" id="5_qhn2t"]
+[ext_resource type="Texture2D" uid="uid://pi6gux6x54or" path="res://Sprites/scissors.png" id="7_agij0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6x8gs"]
-radius = 75.0267
+radius = 125.0
+
+[sub_resource type="Resource" id="Resource_evxvx"]
+script = ExtResource("4_evxvx")
+angle_start = 0.0
+angle_end = 60.0
+type = "rock"
+icon = ExtResource("5_7oaar")
+color = Color(0.95, 0.0855, 0.2584, 1)
+metadata/_custom_type_script = "uid://20q4wr40svnw"
 
 [sub_resource type="Resource" id="Resource_qhn2t"]
 script = ExtResource("4_evxvx")
-type = "rock"
-angle_start = 0.0
-angle_end = 100.0
+angle_start = 60.0
+angle_end = 120.0
+type = "paper"
+icon = ExtResource("5_qhn2t")
+color = Color(0.0522, 0.54288, 0.87, 1)
 metadata/_custom_type_script = "uid://20q4wr40svnw"
 
 [sub_resource type="Resource" id="Resource_7oaar"]
 script = ExtResource("4_evxvx")
-type = "paper"
 angle_start = 120.0
-angle_end = 240.0
+angle_end = 180.0
+type = "scissors"
+icon = ExtResource("7_agij0")
+color = Color(0.1411, 0.83, 0.221472, 1)
 metadata/_custom_type_script = "uid://20q4wr40svnw"
 
-[sub_resource type="Resource" id="Resource_evxvx"]
+[sub_resource type="Resource" id="Resource_agij0"]
 script = ExtResource("4_evxvx")
-type = "scissors"
+angle_start = 180.0
+angle_end = 240.0
+type = "rock"
+icon = ExtResource("5_7oaar")
+color = Color(0.94902, 0.0862745, 0.258824, 1)
+metadata/_custom_type_script = "uid://20q4wr40svnw"
+
+[sub_resource type="Resource" id="Resource_87rcn"]
+script = ExtResource("4_evxvx")
 angle_start = 240.0
+angle_end = 300.0
+type = "paper"
+icon = ExtResource("5_qhn2t")
+color = Color(0.0509804, 0.541176, 0.870588, 1)
+metadata/_custom_type_script = "uid://20q4wr40svnw"
+
+[sub_resource type="Resource" id="Resource_fl7xt"]
+script = ExtResource("4_evxvx")
+angle_start = 300.0
 angle_end = 360.0
+type = "scissors"
+icon = ExtResource("7_agij0")
+color = Color(0.141176, 0.831373, 0.219608, 1)
 metadata/_custom_type_script = "uid://20q4wr40svnw"
 
 [node name="Roulette" type="Node2D"]
@@ -50,13 +86,7 @@ node_b = NodePath("../../Pivot")
 
 [node name="Drawer" type="Node2D" parent="Wheel"]
 script = ExtResource("3_e675i")
-radius = 125.0
-sections = Array[ExtResource("4_evxvx")]([SubResource("Resource_qhn2t"), SubResource("Resource_7oaar"), SubResource("Resource_evxvx")])
-border_width = 10.0
-section_colors = {
-"paper": Color(0.46292, 0.675907, 0.478821, 1),
-"rock": Color(0.943187, 0.428767, 0.378599, 1),
-"scissors": Color(0.233148, 0.457125, 1, 1)
-}
+sections = Array[ExtResource("4_evxvx")]([SubResource("Resource_evxvx"), SubResource("Resource_qhn2t"), SubResource("Resource_7oaar"), SubResource("Resource_agij0"), SubResource("Resource_87rcn"), SubResource("Resource_fl7xt")])
+border_width = 8.0
 
 [node name="Pivot" type="StaticBody2D" parent="."]
