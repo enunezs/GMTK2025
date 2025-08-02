@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://7o0wdtbv6nc4"]
+
+[ext_resource type="Script" uid="uid://dtuyvq5ya52w3" path="res://Roulette.gd" id="1_6x8gs"]
+[ext_resource type="Texture2D" uid="uid://becy43nmj57r6" path="res://Sprites/Picture1.png" id="1_m1l22"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6x8gs"]
+radius = 75.0267
+
+[node name="Roulette" type="Node2D"]
+script = ExtResource("1_6x8gs")
+torque_impulse = 300.0
+
+[node name="Wheel" type="RigidBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel"]
+shape = SubResource("CircleShape2D_6x8gs")
+
+[node name="Sprite2D" type="Sprite2D" parent="Wheel"]
+scale = Vector2(0.507937, 0.507936)
+texture = ExtResource("1_m1l22")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Wheel"]
+node_a = NodePath("..")
+node_b = NodePath("../../Pivot")
+
+[node name="Pivot" type="StaticBody2D" parent="."]

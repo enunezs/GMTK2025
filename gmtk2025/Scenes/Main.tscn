@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://nyrj3lvs2kyr"]
+
+[ext_resource type="PackedScene" uid="uid://7o0wdtbv6nc4" path="res://Scenes/wheel_test.tscn" id="1_idj7w"]
+[ext_resource type="Script" uid="uid://cbekjl5bh405m" path="res://Scenes/Main.gd" id="1_kln2b"]
+[ext_resource type="Script" uid="uid://cj1tyarfquiat" path="res://Scenes/InputHandler.gd" id="2_kln2b"]
+
+[node name="Main_Node2D" type="Node2D"]
+script = ExtResource("1_kln2b")
+
+[node name="Roulette_Left" parent="." instance=ExtResource("1_idj7w")]
+position = Vector2(198, 311)
+
+[node name="Roulette_Right" parent="." instance=ExtResource("1_idj7w")]
+position = Vector2(948, 319)
+clockwise = false
+
+[node name="InputHandler" type="Node2D" parent="."]
+script = ExtResource("2_kln2b")
+
+[connection signal="spin_requested" from="InputHandler" to="." method="_on_spin_requested"]
