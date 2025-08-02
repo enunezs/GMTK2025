@@ -9,7 +9,7 @@ subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_yshok"]
 font = SubResource("SystemFont_kiqta")
-font_size = 50
+font_size = 25
 outline_size = 7
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 6
@@ -23,5 +23,5 @@ script = ExtResource("1_tv0yu")
 [node name="TimerLabel" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
-text = "30.000"
+text = "30.00"
 label_settings = SubResource("LabelSettings_yshok")

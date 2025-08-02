@@ -17,23 +17,22 @@ func _ready():
 func _on_timer_timeout() -> void:
 
     # Dissable input
-    # $InputHandler.set_process_input(false)
+    $InputHandler.set_process_input(false)
 
     # Stop wheels
-    # $Roulette1.snap_to_result()
-    # $Roulette2.snap_to_result()
+    $Roulette_Left.snap_to_result()
+    $Roulette_Right.snap_to_result()
 
 
-    await get_tree().create_timer(0.6).timeout  # Wait for tween
+    await get_tree().create_timer(0.6).timeout  
 
-    var r1 = $Roulette_Left.get_result_type()
-    var r2 = $Roulette_Right.get_result_type()
+    # var r1 = $Roulette_Left.get_result_type()
+    # var r2 = $Roulette_Right.get_result_type()
     # var result = RPSLogic.evaluate(r1, r2)
     # $UI.display_result(result)
 
 
 func _on_spin_requested(player_id: int):
-    print("Applying spin for player: ", player_id)
     match player_id:
         1: $Roulette_Left.apply_push()
         2: $Roulette_Right.apply_push()

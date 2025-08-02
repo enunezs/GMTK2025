@@ -24,6 +24,7 @@ func _attempt_spin(player_id: int):
     _cooldowns[player_id] = true
     _start_cooldown_timer(player_id)
 
+
 func _start_cooldown_timer(player_id: int):
     var t = Timer.new()
     t.wait_time = cooldown_time
